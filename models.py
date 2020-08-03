@@ -4,9 +4,7 @@ import os
 from sqlalchemy import Column, String, Integer, create_engine
 import json
 
-database_name = "agency"
-database_path = "postgres://postgres:postgres@{}/{}".format('localhost:5432',
-                                                            database_name)
+database_path = os.environ.get('DATABASE_URL')
 
 db = SQLAlchemy()
 
@@ -16,11 +14,12 @@ setup_db(app)
 '''
 
 
-def setup_db(app, database=database_path):
+def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
+    db.create_all()
 
 
 '''
@@ -61,7 +60,7 @@ class Movie(db.Model):
 
     def format(self):
         return {
-            'id': self.movie_id,
+            'id': self.id,
             'title': self.title,
             'release_date': self.release_date,
             }
@@ -91,7 +90,7 @@ class Actor(db.Model):
 
     def format(self):
         return {
-            'id': self.actor_id,
+            'id': self.id,
             'name': self.name,
             'age': self.age,
             }
