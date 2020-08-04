@@ -1,5 +1,3 @@
-a7e5aaf7fa15647b5b2e0f65e14b641b-1494542659.us-west-2.elb.amazonaws.com
-
 # Casting Agency Project
 
 ## Content
@@ -15,11 +13,11 @@ a7e5aaf7fa15647b5b2e0f65e14b641b-1494542659.us-west-2.elb.amazonaws.com
 
 This is the fifth and final project of the Full Stack developer Nanodegree. It covers the following technical topics:
 
-Database modeling with postgres & sqlalchemy
-API to performance CRUD Operations on database with Flask
-Automated testing with Unittest
-Authorization & Role based Authentification with Auth0
-Deployment on Heroku
+- Database modeling with postgres & sqlalchemy
+- API to performance CRUD Operations on database with Flask
+- Automated testing with Unittest
+- Authorization & Role based Authentification with Auth0
+- Deployment on Heroku
 
 
 The project resembles a casting agency which is responsible for creating movies, managing and assigning actors to these movies.
