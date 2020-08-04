@@ -18,7 +18,7 @@ def create_app(test_config=None):
     app = Flask(__name__)
     CORS(app)
     setup_db(app)
-    db_drop_and_create_all()
+    # db_drop_and_create_all()
 
     @app.route('/actors')
     @requires_auth('get:actors')
