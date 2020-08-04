@@ -3,13 +3,13 @@ a7e5aaf7fa15647b5b2e0f65e14b641b-1494542659.us-west-2.elb.amazonaws.com
 # Casting Agency Project
 
 ## Content
-1.Motivation
-2.Installing Dependencies
-3.Running server locally
-4.Application Endpoints
-5.Authentication
-6.Testing
-7.Running server on Heroku
+1. Motivation
+2. Installing Dependencies
+3. Running server locally
+4. Application Endpoints
+5. Authentication
+6. Testing
+7. Running server on Heroku
 
 ## Motivation
 
@@ -49,9 +49,7 @@ This will install all of the required packages we selected within the `requireme
 ##### Key Dependencies
 
 - [Flask](http://flask.pocoo.org/)  is a lightweight backend microservices framework. Flask is required to handle requests and responses.
-
-- [SQLAlchemy](https://www.sqlalchemy.org/) and [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) are libraries to handle the lightweight sqlite database. Since we want you to focus on auth, we handle the heavy lift for you in `./src/database/models.py`. We recommend skimming this code first so you know how to interface with the Drink model.
-
+- [SQLAlchemy](https://www.sqlalchemy.org/) and [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) are libraries to handle the postgresql database.
 - [jose](https://python-jose.readthedocs.io/en/latest/) JavaScript Object Signing and Encryption for JWTs. Useful for encoding, decoding, and verifying JWTS.
 
 ## Running server locally
@@ -59,6 +57,7 @@ This will install all of the required packages we selected within the `requireme
 Each time you open a new terminal session, run:
 
 ```bash
+source setup.sh
 export FLASK_APP=api.py;
 ```
 
