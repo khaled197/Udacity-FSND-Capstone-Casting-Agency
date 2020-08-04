@@ -1,8 +1,8 @@
 a7e5aaf7fa15647b5b2e0f65e14b641b-1494542659.us-west-2.elb.amazonaws.com
 
-# Casting Agency Project 
+# Casting Agency Project
 
-## Content 
+## Content
 1.Motivation
 2.Installing Dependencies
 3.Running server locally
@@ -90,7 +90,7 @@ DELETE '/movies/<int:id>'
 GET '/actors'
 - Fetches a list of actors
 - Request Arguments: None
-- Returns: An object with a success key and a list of actors. 
+- Returns: An object with a success key and a list of actors.
 {
     'success': True,
     'actors': [{
@@ -157,7 +157,7 @@ DELETE '/actors/<int:id>'
 - Request Arguments: None
 - Returns: A dictionary with multiple keys which are the id of the deleted actor and success key
 {
-  "delete": 2, 
+  "delete": 2,
   "success": true
 }
 
@@ -166,7 +166,7 @@ DELETE '/movies/<int:id>'
 - Request Arguments: None
 - Returns: A dictionary with multiple keys which are the id of the deleted movie and success key
 {
-  "delete": 1, 
+  "delete": 1,
   "success": true
 }
 
@@ -236,4 +236,6 @@ python test_app.py
 
 ## Running server on Heroku
 
+The  application runs on
 
+[cast agency website](https://cast-agency.herokuapp.com/)
