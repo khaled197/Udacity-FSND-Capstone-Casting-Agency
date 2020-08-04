@@ -60,8 +60,8 @@ class AgencyTestCase(unittest.TestCase):
             '9wZjzs6__QKFSeRXmw'
 
         self.director_token = \
-            'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJvQmJ2LTFCSE5CV' +\
-            'UE 2X3dRdDZJbCJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtbmlnaHQudXMuYXV0' +\
+            'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJvQmJ2LTFCSE5C' + \
+            'VUE2X3dRdDZJbCJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtbmlnaHQudXMuYXV0' +\
             'aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTA5NDgwNzI4MTYxNDg5M' +\
             'DExNjc5IiwiYXVkIjpbImxvZ2luIiwiaHR0cHM6Ly9mc25kLW5pZ2h0LnVzLm' +\
             'F1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1OTY1MzAxMjUsImV4cCI6MTU' +\

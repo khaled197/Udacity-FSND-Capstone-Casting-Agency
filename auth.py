@@ -28,7 +28,6 @@ class AuthError(Exception):
 def get_token_auth_header():
 
     auth_headers, auth_parts = None, None
-
     if 'Authorization' in request.headers:
         auth_headers = request.headers['Authorization']
     if auth_headers:
