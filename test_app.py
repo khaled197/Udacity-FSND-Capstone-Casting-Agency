@@ -6,6 +6,10 @@ from flask_sqlalchemy import SQLAlchemy
 from app import create_app
 from models import setup_db, db_drop_and_create_all, Movie, Actor
 
+ASSISTANT_TOKEN = os.environ.get('ASSISTANT_TOKEN')
+DIRECTOR_TOKEN = os.environ.get('DIRECTOR_TOKEN')
+PRODUCER_TOKEN = os.environ.get('PRODUCER_TOKEN')
+
 
 class AgencyTestCase(unittest.TestCase):
     """This class represents the agency test case"""
@@ -43,72 +47,22 @@ class AgencyTestCase(unittest.TestCase):
         self.another_movie = {
             "title": "the terminal",
         }
-        self.assistant_token = \
-            'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJvQmJ2LTFCSE5CV' +\
-            'UE2X3dRdDZJbCJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtbmlnaHQudXMuYXV0a' +\
-            'DAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTE1Nzc2NDExNzk1NjkwNj' +\
-            'E0OTczIiwiYXVkIjpbImxvZ2luIiwiaHR0cHM6Ly9mc25kLW5pZ2h0LnVzLmF' +\
-            '1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1OTY1MzAxODgsImV4cCI6MTU5' +\
-            'NjUzNzM4OCwiYXpwIjoiY3ZkWjFOQkZISmVmZVJOSEl0emIxZ0ZQdlRkMHlOb' +\
-            'lciLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbn' +\
-            'MiOlsiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiXX0.IZA7Vt9gKMFC-tmlgjG' +\
-            'LjjGqISXXo2AcOvGztwbJhinZNaociyZJzD52yQc3P1DGXPT4STlXkyNs3WCM' +\
-            'bHXmQ-1oe7HrQJjMm-3FN6OB9tU62RFDhn5q1l4nJWMuDR2FMER6ETQFdoXef' +\
-            'mQB95D6uvNGoYsGkcm9nB4e_gA-1Hn-5w-by74QTuIZEy180WoWP4WKg821aD' +\
-            'FpHDwpV_0Tq80cys5gA_3nQboYAwXDfMZbzl8q1Yts9BMydkkt-09S9H9o-nr' +\
-            'Tf09MW3qR7j6BgpJCBbRongyDB4Ni4v8FcHCKASwEzTvXnh1EQzTsD7yVnw2q' +\
-            '9wZjzs6__QKFSeRXmw'
-
-        self.director_token = \
-            'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJvQmJ2LTFCSE5C' + \
-            'VUE2X3dRdDZJbCJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtbmlnaHQudXMuYXV0' +\
-            'aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTA5NDgwNzI4MTYxNDg5M' +\
-            'DExNjc5IiwiYXVkIjpbImxvZ2luIiwiaHR0cHM6Ly9mc25kLW5pZ2h0LnVzLm' +\
-            'F1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1OTY1MzAxMjUsImV4cCI6MTU' +\
-            '5NjUzNzMyNSwiYXpwIjoiY3ZkWjFOQkZISmVmZVJOSEl0emIxZ0ZQdlRkMHlO' +\
-            'blciLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvb' +\
-            'nMiOlsiZGVsZXRlOmFjdG9ycyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIi' +\
-            'wicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiXX0' +\
-            '.BCvrR8bsGn_EIo2TlEpWHzy4OrxSiA02HGOTqgqWNtzya-KyXg5XQHaIgvZ8' +\
-            'drP8Wjyn3ifZRKc0R8vgFAtCXfBuX5pNCU4bw_BMADOtT05HXbnipaql6ox3Z' +\
-            'OBw8jOcDQb3K-yFWlYr2piLu0_Aa6r_x6AMum8x_HT7KcoN0n63v269mUHwuE' +\
-            'pAxj3JlF7GMHs3do3FwDz8lWV2ZZouD7uOwek1VnHHlReUz0_W3r9blAzewH2' +\
-            'qlifGr2Iud8DDiBxxX7cVctOJJ7fAmv1mbIpDzOV7nsnZTnTpn--_M-BD-ODo' +\
-            'dO2Kc7HAUOX-qv56s1cREnLITU0qxS3MNPLziA'
-
-        self.executive_token = \
-            'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJvQmJ2LTFCSE5CV' +\
-            'UE2X3dRdDZJbCJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtbmlnaHQudXMuYXV0a' +\
-            'DAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTA1NDIxMTk3Nzc4NTY3NT' +\
-            'g5NzA2IiwiYXVkIjpbImxvZ2luIiwiaHR0cHM6Ly9mc25kLW5pZ2h0LnVzLmF' +\
-            '1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1OTY1Mjk5NjIsImV4cCI6MTU5' +\
-            'NjUzNzE2MiwiYXpwIjoiY3ZkWjFOQkZISmVmZVJOSEl0emIxZ0ZQdlRkMHlOb' +\
-            'lciLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbn' +\
-            'MiOlsiZGVsZXRlOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJnZXQ6YWN0b3J' +\
-            'zIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIs' +\
-            'InBvc3Q6YWN0b3JzIiwicG9zdDptb3ZpZXMiXX0.fXsg1inlEVehqoYb1i2Mj' +\
-            'aRyLUjv6bzjZT-4ePI-F81a3d3ybdHHxS9o-YgfroyN-E9Tj6OiWP8yV3FOIO' +\
-            'DVBTbBHsWw2MWY1P8VE2qPmyxDfwPU3bWvTcdjGfuaycTNELoNhVYg-kY56D2' +\
-            'torPM0JX2BQUjDb9tGi3ErngVJ-GLlqnQpRG9wY05wIxXrcR7BiACfXKa2N5H' +\
-            'Jih8N2w5gdsaB4ms_KAcvlMmysJKpMbkoF6I3p7mHOx8ZPr95weGHRLlX5BWo' +\
-            'Sax351cY9J36zcnsIJEKDrc0Fn41qeCPxoiQniE7ci0l9hrQ0Ve5sMzWTh_J1' +\
-            'pIOZQuCkSKPdikXg'
 
         self.assistant_header = {
-            "Authorization": "Bearer {}".format(self.assistant_token)}
+            "Authorization": "Bearer {}".format(ASSISTANT_TOKEN)}
 
         self.director_header = {
-            "Authorization": "Bearer {}".format(self.director_token)}
+            "Authorization": "Bearer {}".format(DIRECTOR_TOKEN)}
 
         self.producer_header = {
-            "Authorization": "Bearer {}".format(self.executive_token)}
+            "Authorization": "Bearer {}".format(PRODUCER_TOKEN)}
 
         # add some movies and actors objects to the database for testing
-        for i in range(0, 10):
-            res = self.client().post('/actors', json=self.actor,
-                                     headers=self.producer_header)
-            res2 = self.client().post('/movies', json=self.movie,
-                                      headers=self.producer_header)
+        # for i in range(0, 10):
+        #     res = self.client().post('/actors', json=self.actor,
+        #                              headers=self.producer_header)
+        #     res2 = self.client().post('/movies', json=self.movie,
+        #                               headers=self.producer_header)
 
     def tearDown(self):
         """Executed after reach test"""
